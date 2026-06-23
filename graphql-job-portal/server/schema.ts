@@ -1,5 +1,6 @@
 import "graphql-import-node";
 import { makeExecutableSchema } from "@graphql-tools/schema";
+import { typeDefs as scalarTypeDefs, resolvers as scalarResolvers } from "./scalars";
 
 import {
   resolvers as companyResolvers,
@@ -17,8 +18,8 @@ import {
 } from "./entities/job";
 
 const schema = makeExecutableSchema({
-  typeDefs: [companyTypeDefs, userTypeDefs, jobTypeDefs],
-  resolvers: [companyResolvers, userResolvers, jobResolvers],
+  typeDefs: [scalarTypeDefs, companyTypeDefs, userTypeDefs, jobTypeDefs],
+  resolvers: [scalarResolvers, companyResolvers, userResolvers, jobResolvers],
 });
 
 export default schema;
