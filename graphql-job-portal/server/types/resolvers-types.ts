@@ -13,17 +13,15 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean; }
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
-  DateTime: { input: unknown; output: unknown; }
+  DateTime: { input: Date; output: Date; }
 };
 
 export type ApplyToJobInput = {
-  __typename?: 'ApplyToJobInput';
-  id: Scalars['ID']['output'];
+  id: Scalars['ID']['input'];
 };
 
 export type CancelApplicationInput = {
-  __typename?: 'CancelApplicationInput';
-  id: Scalars['ID']['output'];
+  id: Scalars['ID']['input'];
 };
 
 export type Company = {
@@ -33,19 +31,17 @@ export type Company = {
 };
 
 export type CreateJobInput = {
-  __typename?: 'CreateJobInput';
-  companyName: Scalars['String']['output'];
-  description: Scalars['String']['output'];
-  location: Scalars['String']['output'];
-  remote: Scalars['Boolean']['output'];
-  salary: Scalars['Int']['output'];
-  title: Scalars['String']['output'];
+  companyName: Scalars['String']['input'];
+  description: Scalars['String']['input'];
+  location: Scalars['String']['input'];
+  remote: Scalars['Boolean']['input'];
+  salary: Scalars['Int']['input'];
+  title: Scalars['String']['input'];
   type: JobType;
 };
 
 export type DeleteJobInput = {
-  __typename?: 'DeleteJobInput';
-  id: Scalars['ID']['output'];
+  id: Scalars['ID']['input'];
 };
 
 export type Job = {
@@ -73,9 +69,8 @@ export enum JobType {
 }
 
 export type LoginInput = {
-  __typename?: 'LoginInput';
-  email: Scalars['String']['output'];
-  password: Scalars['String']['output'];
+  email: Scalars['String']['input'];
+  password: Scalars['String']['input'];
 };
 
 export type Mutation = {
@@ -131,15 +126,13 @@ export type QuerySearchJobsArgs = {
 };
 
 export type SearchJobsInput = {
-  __typename?: 'SearchJobsInput';
-  query: Scalars['String']['output'];
+  query: Scalars['String']['input'];
 };
 
 export type SignupInput = {
-  __typename?: 'SignupInput';
-  email: Scalars['String']['output'];
-  name: Scalars['String']['output'];
-  password: Scalars['String']['output'];
+  email: Scalars['String']['input'];
+  name: Scalars['String']['input'];
+  password: Scalars['String']['input'];
   role: UserRole;
 };
 
@@ -235,7 +228,7 @@ export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Partial<Scalars['Boolean']['output']>>;
   CancelApplicationInput: ResolverTypeWrapper<Partial<CancelApplicationInput>>;
   Company: ResolverTypeWrapper<Partial<Company>>;
-  CreateJobInput: ResolverTypeWrapper<Partial<Omit<CreateJobInput, 'type'> & { type: ResolversTypes['JobType'] }>>;
+  CreateJobInput: ResolverTypeWrapper<Partial<CreateJobInput>>;
   DateTime: ResolverTypeWrapper<Partial<Scalars['DateTime']['output']>>;
   DeleteJobInput: ResolverTypeWrapper<Partial<DeleteJobInput>>;
   ID: ResolverTypeWrapper<Partial<Scalars['ID']['output']>>;
@@ -273,36 +266,14 @@ export type ResolversParentTypes = {
   User: Partial<Omit<User, 'appliedJobs' | 'ownedJobs'> & { appliedJobs: Array<ResolversParentTypes['Job']>, ownedJobs: Array<ResolversParentTypes['Job']> }>;
 };
 
-export type ApplyToJobInputResolvers<ContextType = Context, ParentType extends ResolversParentTypes['ApplyToJobInput'] = ResolversParentTypes['ApplyToJobInput']> = {
-  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-};
-
-export type CancelApplicationInputResolvers<ContextType = Context, ParentType extends ResolversParentTypes['CancelApplicationInput'] = ResolversParentTypes['CancelApplicationInput']> = {
-  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-};
-
 export type CompanyResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Company'] = ResolversParentTypes['Company']> = {
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
 };
 
-export type CreateJobInputResolvers<ContextType = Context, ParentType extends ResolversParentTypes['CreateJobInput'] = ResolversParentTypes['CreateJobInput']> = {
-  companyName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  location?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  remote?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  salary?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  type?: Resolver<ResolversTypes['JobType'], ParentType, ContextType>;
-};
-
 export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['DateTime'], any> {
   name: 'DateTime';
 }
-
-export type DeleteJobInputResolvers<ContextType = Context, ParentType extends ResolversParentTypes['DeleteJobInput'] = ResolversParentTypes['DeleteJobInput']> = {
-  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-};
 
 export type JobResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Job'] = ResolversParentTypes['Job']> = {
   company?: Resolver<ResolversTypes['Company'], ParentType, ContextType>;
@@ -320,11 +291,6 @@ export type JobResolvers<ContextType = Context, ParentType extends ResolversPare
 
 export type JobTypeResolvers = EnumResolverSignature<{ CONTRACT?: any, FULL_TIME?: any, INTERNSHIP?: any, PART_TIME?: any, TEMPORARY?: any, VOLUNTEER?: any }, ResolversTypes['JobType']>;
 
-export type LoginInputResolvers<ContextType = Context, ParentType extends ResolversParentTypes['LoginInput'] = ResolversParentTypes['LoginInput']> = {
-  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  password?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-};
-
 export type MutationResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   applyToJob?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationApplyToJobArgs, 'input'>>;
   cancelApplication?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationCancelApplicationArgs, 'input'>>;
@@ -340,17 +306,6 @@ export type QueryResolvers<ContextType = Context, ParentType extends ResolversPa
   searchJobs?: Resolver<Array<ResolversTypes['Job']>, ParentType, ContextType, RequireFields<QuerySearchJobsArgs, 'input'>>;
 };
 
-export type SearchJobsInputResolvers<ContextType = Context, ParentType extends ResolversParentTypes['SearchJobsInput'] = ResolversParentTypes['SearchJobsInput']> = {
-  query?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-};
-
-export type SignupInputResolvers<ContextType = Context, ParentType extends ResolversParentTypes['SignupInput'] = ResolversParentTypes['SignupInput']> = {
-  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  password?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  role?: Resolver<ResolversTypes['UserRole'], ParentType, ContextType>;
-};
-
 export type UserResolvers<ContextType = Context, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
   appliedJobs?: Resolver<Array<ResolversTypes['Job']>, ParentType, ContextType>;
   email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -361,19 +316,12 @@ export type UserResolvers<ContextType = Context, ParentType extends ResolversPar
 };
 
 export type Resolvers<ContextType = Context> = {
-  ApplyToJobInput?: ApplyToJobInputResolvers<ContextType>;
-  CancelApplicationInput?: CancelApplicationInputResolvers<ContextType>;
   Company?: CompanyResolvers<ContextType>;
-  CreateJobInput?: CreateJobInputResolvers<ContextType>;
   DateTime?: GraphQLScalarType;
-  DeleteJobInput?: DeleteJobInputResolvers<ContextType>;
   Job?: JobResolvers<ContextType>;
   JobType?: JobTypeResolvers;
-  LoginInput?: LoginInputResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
-  SearchJobsInput?: SearchJobsInputResolvers<ContextType>;
-  SignupInput?: SignupInputResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
 };
 

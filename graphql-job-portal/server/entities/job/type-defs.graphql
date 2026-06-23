@@ -21,7 +21,7 @@ type Job {
   isApplied: Boolean!
 }
 
-type SearchJobsInput {
+input SearchJobsInput {
   query: String!
 }
 
@@ -29,7 +29,7 @@ type Query {
   searchJobs(input: SearchJobsInput!): [Job!]!
 }
 
-type CreateJobInput {
+input CreateJobInput {
   title: String!
   location: String!
   description: String!
@@ -39,15 +39,15 @@ type CreateJobInput {
   companyName: String!
 }
 
-type DeleteJobInput {
+input DeleteJobInput {
   id: ID!
 }
 
-type ApplyToJobInput {
+input ApplyToJobInput {
   id: ID!
 }
 
-type CancelApplicationInput {
+input CancelApplicationInput {
   id: ID!
 }
 

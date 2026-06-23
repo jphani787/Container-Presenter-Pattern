@@ -1,10 +1,5 @@
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
-export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: { input: string; output: string; }
@@ -12,10 +7,10 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean; }
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
-  DateTime: { input: any; output: any; }
+  DateTime: { input: unknown; output: unknown; }
 };
 
-export type ApplyForJobInput = {
+export type ApplyToJobInput = {
   id: Scalars['ID']['input'];
 };
 
@@ -59,9 +54,12 @@ export type Job = {
 };
 
 export enum JobType {
+  CONTRACT = 'CONTRACT',
   FULL_TIME = 'FULL_TIME',
   INTERNSHIP = 'INTERNSHIP',
-  PART_TIME = 'PART_TIME'
+  PART_TIME = 'PART_TIME',
+  TEMPORARY = 'TEMPORARY',
+  VOLUNTEER = 'VOLUNTEER'
 }
 
 export type LoginInput = {
@@ -71,7 +69,7 @@ export type LoginInput = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  applyForJob: Scalars['Boolean']['output'];
+  applyToJob: Scalars['Boolean']['output'];
   cancelApplication: Scalars['Boolean']['output'];
   createJob: Job;
   deleteJob: Scalars['Boolean']['output'];
@@ -81,8 +79,8 @@ export type Mutation = {
 };
 
 
-export type MutationApplyForJobArgs = {
-  input: ApplyForJobInput;
+export type MutationApplyToJobArgs = {
+  input: ApplyToJobInput;
 };
 
 
