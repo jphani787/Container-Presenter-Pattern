@@ -2,21 +2,23 @@ const Modal = ({ children, isOpen, onClose }) => {
     if (!isOpen) return null;
     return (
         <div className="modal-backdrop">
-            <div className="modal-container">{children}</div>
-            <button className="modal-close" onClick={onClose}>X</button>
+            <div className="modal-container">
+                {children}
+                <button className="modal-close" onClick={onClose}>X</button>
+            </div>
         </div>
     );
 };
 
-const ModalHeader = ({ children }) => {
+function ModalHeader({ children }) {
     return <div className="modal-title">{children}</div>;
 };
 
-const ModalBody = ({ children }) => {
+function ModalBody({ children }) {
     return <div className="modal-body">{children}</div>;
 };
 
-const ModalFooter = ({ children }) => {
+function ModalFooter({ children }) {
     return <div className="modal-footer">{children}</div>;
 };
 
