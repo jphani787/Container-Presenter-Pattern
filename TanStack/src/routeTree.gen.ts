@@ -9,13 +9,20 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as OrgActivitiesPostsRouteImport } from './routes/org/activities/posts'
 import { Route as OrgActivitiesHackathonRouteImport } from './routes/org/activities/hackathon'
 import { Route as OrgActivitiesMeetupsIndexRouteImport } from './routes/org/activities/meetups/index'
+import { Route as OrgActivitiesMeetupsCreateRouteImport } from './routes/org/activities/meetups/create'
 import { Route as OrgActivitiesMeetupsMeetupIdRouteImport } from './routes/org/activities/meetups/$meetupId'
 
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
@@ -44,6 +51,12 @@ const OrgActivitiesMeetupsIndexRoute =
     path: '/org/activities/meetups/',
     getParentRoute: () => rootRouteImport,
   } as any)
+const OrgActivitiesMeetupsCreateRoute =
+  OrgActivitiesMeetupsCreateRouteImport.update({
+    id: '/org/activities/meetups/create',
+    path: '/org/activities/meetups/create',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const OrgActivitiesMeetupsMeetupIdRoute =
   OrgActivitiesMeetupsMeetupIdRouteImport.update({
     id: '/org/activities/meetups/$meetupId',
@@ -54,26 +67,32 @@ const OrgActivitiesMeetupsMeetupIdRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/login': typeof LoginRoute
   '/org/activities/hackathon': typeof OrgActivitiesHackathonRoute
   '/org/activities/posts': typeof OrgActivitiesPostsRoute
   '/org/activities/meetups/$meetupId': typeof OrgActivitiesMeetupsMeetupIdRoute
+  '/org/activities/meetups/create': typeof OrgActivitiesMeetupsCreateRoute
   '/org/activities/meetups/': typeof OrgActivitiesMeetupsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/login': typeof LoginRoute
   '/org/activities/hackathon': typeof OrgActivitiesHackathonRoute
   '/org/activities/posts': typeof OrgActivitiesPostsRoute
   '/org/activities/meetups/$meetupId': typeof OrgActivitiesMeetupsMeetupIdRoute
+  '/org/activities/meetups/create': typeof OrgActivitiesMeetupsCreateRoute
   '/org/activities/meetups': typeof OrgActivitiesMeetupsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/login': typeof LoginRoute
   '/org/activities/hackathon': typeof OrgActivitiesHackathonRoute
   '/org/activities/posts': typeof OrgActivitiesPostsRoute
   '/org/activities/meetups/$meetupId': typeof OrgActivitiesMeetupsMeetupIdRoute
+  '/org/activities/meetups/create': typeof OrgActivitiesMeetupsCreateRoute
   '/org/activities/meetups/': typeof OrgActivitiesMeetupsIndexRoute
 }
 export interface FileRouteTypes {
@@ -81,39 +100,54 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/login'
     | '/org/activities/hackathon'
     | '/org/activities/posts'
     | '/org/activities/meetups/$meetupId'
+    | '/org/activities/meetups/create'
     | '/org/activities/meetups/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
+    | '/login'
     | '/org/activities/hackathon'
     | '/org/activities/posts'
     | '/org/activities/meetups/$meetupId'
+    | '/org/activities/meetups/create'
     | '/org/activities/meetups'
   id:
     | '__root__'
     | '/'
     | '/about'
+    | '/login'
     | '/org/activities/hackathon'
     | '/org/activities/posts'
     | '/org/activities/meetups/$meetupId'
+    | '/org/activities/meetups/create'
     | '/org/activities/meetups/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  LoginRoute: typeof LoginRoute
   OrgActivitiesHackathonRoute: typeof OrgActivitiesHackathonRoute
   OrgActivitiesPostsRoute: typeof OrgActivitiesPostsRoute
   OrgActivitiesMeetupsMeetupIdRoute: typeof OrgActivitiesMeetupsMeetupIdRoute
+  OrgActivitiesMeetupsCreateRoute: typeof OrgActivitiesMeetupsCreateRoute
   OrgActivitiesMeetupsIndexRoute: typeof OrgActivitiesMeetupsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about': {
       id: '/about'
       path: '/about'
@@ -149,6 +183,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OrgActivitiesMeetupsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/org/activities/meetups/create': {
+      id: '/org/activities/meetups/create'
+      path: '/org/activities/meetups/create'
+      fullPath: '/org/activities/meetups/create'
+      preLoaderRoute: typeof OrgActivitiesMeetupsCreateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/org/activities/meetups/$meetupId': {
       id: '/org/activities/meetups/$meetupId'
       path: '/org/activities/meetups/$meetupId'
@@ -162,9 +203,11 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  LoginRoute: LoginRoute,
   OrgActivitiesHackathonRoute: OrgActivitiesHackathonRoute,
   OrgActivitiesPostsRoute: OrgActivitiesPostsRoute,
   OrgActivitiesMeetupsMeetupIdRoute: OrgActivitiesMeetupsMeetupIdRoute,
+  OrgActivitiesMeetupsCreateRoute: OrgActivitiesMeetupsCreateRoute,
   OrgActivitiesMeetupsIndexRoute: OrgActivitiesMeetupsIndexRoute,
 }
 export const routeTree = rootRouteImport

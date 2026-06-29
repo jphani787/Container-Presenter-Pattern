@@ -29,6 +29,22 @@
       "attendees": 60,
       "city": "Bengaluru",
       "tech": "Full-Stack"
+    },
+    {
+      "id": "N3TNKM0yg_0",
+      "title": "New Developer Meetup",
+      "location": "Bangalore"
+    },
+    {
+      "id": "8CBR6Pe3UAw",
+      "title": "New Developer Meetup",
+      "location": "Bangalore"
+    },
+    {
+      "id": "EhWu829hkTM",
+      "title": "New Developer Meetup",
+      "location": "Bangalore"
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }
