@@ -8,16 +8,13 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { createFileRoute } from '@tanstack/react-router'
-
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as OrgActivitiesPostsRouteImport } from './routes/org/activities/posts'
 import { Route as OrgActivitiesHackathonRouteImport } from './routes/org/activities/hackathon'
-
-const OrgActivitiesPostsLazyRouteImport = createFileRoute(
-  '/org/activities/posts',
-)()
+import { Route as OrgActivitiesMeetupsIndexRouteImport } from './routes/org/activities/meetups/index'
+import { Route as OrgActivitiesMeetupsMeetupIdRouteImport } from './routes/org/activities/meetups/$meetupId'
 
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
@@ -29,7 +26,7 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const OrgActivitiesPostsLazyRoute = OrgActivitiesPostsLazyRouteImport.update({
+const OrgActivitiesPostsRoute = OrgActivitiesPostsRouteImport.update({
   id: '/org/activities/posts',
   path: '/org/activities/posts',
   getParentRoute: () => rootRouteImport,
@@ -41,45 +38,78 @@ const OrgActivitiesHackathonRoute = OrgActivitiesHackathonRouteImport.update({
   path: '/org/activities/hackathon',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OrgActivitiesMeetupsIndexRoute =
+  OrgActivitiesMeetupsIndexRouteImport.update({
+    id: '/org/activities/meetups/',
+    path: '/org/activities/meetups/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const OrgActivitiesMeetupsMeetupIdRoute =
+  OrgActivitiesMeetupsMeetupIdRouteImport.update({
+    id: '/org/activities/meetups/$meetupId',
+    path: '/org/activities/meetups/$meetupId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/org/activities/hackathon': typeof OrgActivitiesHackathonRoute
-  '/org/activities/posts': typeof OrgActivitiesPostsLazyRoute
+  '/org/activities/posts': typeof OrgActivitiesPostsRoute
+  '/org/activities/meetups/$meetupId': typeof OrgActivitiesMeetupsMeetupIdRoute
+  '/org/activities/meetups/': typeof OrgActivitiesMeetupsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/org/activities/hackathon': typeof OrgActivitiesHackathonRoute
-  '/org/activities/posts': typeof OrgActivitiesPostsLazyRoute
+  '/org/activities/posts': typeof OrgActivitiesPostsRoute
+  '/org/activities/meetups/$meetupId': typeof OrgActivitiesMeetupsMeetupIdRoute
+  '/org/activities/meetups': typeof OrgActivitiesMeetupsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/org/activities/hackathon': typeof OrgActivitiesHackathonRoute
-  '/org/activities/posts': typeof OrgActivitiesPostsLazyRoute
+  '/org/activities/posts': typeof OrgActivitiesPostsRoute
+  '/org/activities/meetups/$meetupId': typeof OrgActivitiesMeetupsMeetupIdRoute
+  '/org/activities/meetups/': typeof OrgActivitiesMeetupsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/about' | '/org/activities/hackathon' | '/org/activities/posts'
+    | '/'
+    | '/about'
+    | '/org/activities/hackathon'
+    | '/org/activities/posts'
+    | '/org/activities/meetups/$meetupId'
+    | '/org/activities/meetups/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/org/activities/hackathon' | '/org/activities/posts'
+  to:
+    | '/'
+    | '/about'
+    | '/org/activities/hackathon'
+    | '/org/activities/posts'
+    | '/org/activities/meetups/$meetupId'
+    | '/org/activities/meetups'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/org/activities/hackathon'
     | '/org/activities/posts'
+    | '/org/activities/meetups/$meetupId'
+    | '/org/activities/meetups/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   OrgActivitiesHackathonRoute: typeof OrgActivitiesHackathonRoute
-  OrgActivitiesPostsLazyRoute: typeof OrgActivitiesPostsLazyRoute
+  OrgActivitiesPostsRoute: typeof OrgActivitiesPostsRoute
+  OrgActivitiesMeetupsMeetupIdRoute: typeof OrgActivitiesMeetupsMeetupIdRoute
+  OrgActivitiesMeetupsIndexRoute: typeof OrgActivitiesMeetupsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -102,7 +132,7 @@ declare module '@tanstack/react-router' {
       id: '/org/activities/posts'
       path: '/org/activities/posts'
       fullPath: '/org/activities/posts'
-      preLoaderRoute: typeof OrgActivitiesPostsLazyRouteImport
+      preLoaderRoute: typeof OrgActivitiesPostsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/org/activities/hackathon': {
@@ -112,6 +142,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OrgActivitiesHackathonRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/org/activities/meetups/': {
+      id: '/org/activities/meetups/'
+      path: '/org/activities/meetups'
+      fullPath: '/org/activities/meetups/'
+      preLoaderRoute: typeof OrgActivitiesMeetupsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/org/activities/meetups/$meetupId': {
+      id: '/org/activities/meetups/$meetupId'
+      path: '/org/activities/meetups/$meetupId'
+      fullPath: '/org/activities/meetups/$meetupId'
+      preLoaderRoute: typeof OrgActivitiesMeetupsMeetupIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -119,7 +163,9 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   OrgActivitiesHackathonRoute: OrgActivitiesHackathonRoute,
-  OrgActivitiesPostsLazyRoute: OrgActivitiesPostsLazyRoute,
+  OrgActivitiesPostsRoute: OrgActivitiesPostsRoute,
+  OrgActivitiesMeetupsMeetupIdRoute: OrgActivitiesMeetupsMeetupIdRoute,
+  OrgActivitiesMeetupsIndexRoute: OrgActivitiesMeetupsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

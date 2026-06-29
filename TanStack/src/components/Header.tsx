@@ -24,6 +24,7 @@ const Header = () => {
 
         <Link to="/about">About</Link>
         <Link to="/org/activities/posts">Posts</Link>
+        <Link to="/org/activities/meetups">Meetups</Link>
         <a
           target="_blank"
           rel="noopener noreferrer"

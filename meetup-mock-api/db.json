@@ -1,0 +1,34 @@
+{
+  "events": [
+    {
+      "id": "react-kolkata",
+      "title": "React Kolkata",
+      "date": "2026-08-15",
+      "location": "Salt Lake Sector V",
+      "description": "The largest gathering of React developers in the city. Expect deep dives into TanStack, Next.js, and modern frontend architecture.",
+      "attendees": 120,
+      "city": "Kolkata",
+      "tech": "React"
+    },
+    {
+      "id": "blr-chill",
+      "title": "React & Chill Bangalore",
+      "date": "2026-09-10",
+      "location": "Koramangala",
+      "description": "A casual, vibe-coding networking event for frontend engineers in Namma Bengaluru.",
+      "attendees": 85,
+      "city": "Bengaluru",
+      "tech": "React"
+    },
+    {
+      "id": "tapascript",
+      "title": "tapaScript Meetup",
+      "date": "2026-10-10",
+      "location": "E-city",
+      "description": "An Online Event by the tapaScript Community",
+      "attendees": 60,
+      "city": "Bengaluru",
+      "tech": "Full-Stack"
+    }
+  ]
+}
